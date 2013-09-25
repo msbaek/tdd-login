@@ -17,10 +17,12 @@ public class AuthenticateTest {
     private String nonExistingId = "nonExistingId";
 
     @Mock private UserRepository userRepository;
+    private User user = new User();
 
     @Before
     public void setUp() {
         when(userRepository.findById(nonExistingId)).thenReturn(null);
+        when(userRepository.findById(id)).thenReturn(user);
     }
 
     @Test
