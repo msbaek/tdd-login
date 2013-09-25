@@ -1,11 +1,25 @@
 import com.google.common.base.Strings;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.junit.Assert.fail;
+import static org.mockito.Mockito.when;
 
+@RunWith(MockitoJUnitRunner.class)
 public class AuthenticateTest {
     private String id = "id";
     private String pwd = "pwd";
+    private String nonExistingId = "nonExistingId";
+
+    @Mock private UserRepository userRepository;
+
+    @Before
+    public void setUp() {
+        when(userRepository.findById(nonExistingId)).thenReturn(null);
+    }
 
     @Test
     public void whenIdOrPwdIsInvalid_thenThrowException() {
@@ -26,7 +40,7 @@ public class AuthenticateTest {
     @Test
     public void whenIdIsNotExisting_thenThrowException() {
         try {
-            authenticate("nonExistingId", pwd);
+            authenticate(nonExistingId, pwd);
             fail();
         } catch(IdNotFound ex) {
         }
@@ -37,6 +51,9 @@ public class AuthenticateTest {
             throw new InvalidIdOrPwd();
         if (Strings.isNullOrEmpty(pwd))
             throw new InvalidIdOrPwd();
+        User user = userRepository.findById(id);
+        if(user == null)
+            throw new IdNotFound();
     }
 
     private class InvalidIdOrPwd extends RuntimeException {
