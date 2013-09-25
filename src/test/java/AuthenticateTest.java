@@ -4,6 +4,8 @@ import org.junit.Test;
 import static org.junit.Assert.fail;
 
 public class AuthenticateTest {
+    private String id = "id";
+
     @Test
     public void whenIdOrPwdIsInvalid_thenThrowException() {
         try {
@@ -13,6 +15,16 @@ public class AuthenticateTest {
         }
         try {
             authenticate("", null);
+            fail("InvalidIdOrPwd expected");
+        } catch (InvalidIdOrPwd e) {
+        }
+        try {
+            authenticate(id, null);
+            fail("InvalidIdOrPwd expected");
+        } catch (InvalidIdOrPwd e) {
+        }
+        try {
+            authenticate(id, "");
             fail("InvalidIdOrPwd expected");
         } catch (InvalidIdOrPwd e) {
         }
