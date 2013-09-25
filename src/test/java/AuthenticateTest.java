@@ -23,6 +23,15 @@ public class AuthenticateTest {
         }
     }
 
+    @Test
+    public void whenIdIsNotExisting_thenThrowException() {
+        try {
+            authenticate("nonExistingId", pwd);
+            fail();
+        } catch(IdNotFound ex) {
+        }
+    }
+
     private void authenticate(String id, String pwd) {
         if (Strings.isNullOrEmpty(id))
             throw new InvalidIdOrPwd();
@@ -31,5 +40,8 @@ public class AuthenticateTest {
     }
 
     private class InvalidIdOrPwd extends RuntimeException {
+    }
+
+    private class IdNotFound extends RuntimeException {
     }
 }
