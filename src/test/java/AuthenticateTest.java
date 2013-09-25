@@ -56,6 +56,15 @@ public class AuthenticateTest {
         assertThat(user, notNullValue());
     }
 
+    @Test public void whenPwdIsWrong_thenThrowException() {
+        try {
+            authenticate(id, "wrongPwd");
+            fail("WrongPassword expected");
+        }
+        catch(WrongPassword e) {
+        }
+    }
+
     private User authenticate(String id, String pwd) {
         if (Strings.isNullOrEmpty(id))
             throw new InvalidIdOrPwd();
@@ -71,5 +80,8 @@ public class AuthenticateTest {
     }
 
     private class IdNotFound extends RuntimeException {
+    }
+
+    private class WrongPassword extends RuntimeException {
     }
 }
