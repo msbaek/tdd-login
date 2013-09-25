@@ -24,6 +24,7 @@ public class AuthenticateTest {
     public void setUp() {
         user = spy(user);
         doThrow(WrongPassword.class).when(user).authenticate(wrongPwd);
+        doNothing().when(user).authenticate(pwd);
         when(userRepository.findById(nonExistingId)).thenReturn(null);
         when(userRepository.findById(id)).thenReturn(user);
     }
