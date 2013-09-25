@@ -5,6 +5,8 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 import static org.mockito.Mockito.when;
 
@@ -46,7 +48,13 @@ public class AuthenticateTest {
         }
     }
 
-    private void authenticate(String id, String pwd) {
+    @Test
+    public void whenIdIsValid_thenReturnUser() {
+        User user = authenticate(id, "wrongPwd");
+        assertThat(user, notNullValue());
+    }
+
+    private User authenticate(String id, String pwd) {
         if (Strings.isNullOrEmpty(id))
             throw new InvalidIdOrPwd();
         if (Strings.isNullOrEmpty(pwd))
@@ -54,6 +62,7 @@ public class AuthenticateTest {
         User user = userRepository.findById(id);
         if(user == null)
             throw new IdNotFound();
+        return user;
     }
 
     private class InvalidIdOrPwd extends RuntimeException {
