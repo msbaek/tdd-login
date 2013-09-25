@@ -11,6 +11,11 @@ public class AuthenticateTest {
             fail("InvalidIdOrPwd expected");
         } catch (InvalidIdOrPwd e) {
         }
+        try {
+            authenticate("", null);
+            fail("InvalidIdOrPwd expected");
+        } catch (InvalidIdOrPwd e) {
+        }
     }
 
     private void authenticate(String id, String pwd) {
