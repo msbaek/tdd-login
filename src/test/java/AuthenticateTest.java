@@ -13,7 +13,6 @@ public class AuthenticateTest {
         authenticate_for_invalid_id_or_pwd("", null);
         authenticate_for_invalid_id_or_pwd(id, null);
         authenticate_for_invalid_id_or_pwd(id, "");
-        authenticate_for_invalid_id_or_pwd(id, pwd);
     }
 
     private void authenticate_for_invalid_id_or_pwd(String id1, String pwd) {
