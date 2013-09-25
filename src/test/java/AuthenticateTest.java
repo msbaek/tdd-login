@@ -5,6 +5,7 @@ import static org.junit.Assert.fail;
 
 public class AuthenticateTest {
     private String id = "id";
+    private String pwd = "pwd";
 
     @Test
     public void whenIdOrPwdIsInvalid_thenThrowException() {
@@ -12,6 +13,7 @@ public class AuthenticateTest {
         authenticate_for_invalid_id_or_pwd("", null);
         authenticate_for_invalid_id_or_pwd(id, null);
         authenticate_for_invalid_id_or_pwd(id, "");
+        authenticate_for_invalid_id_or_pwd(id, pwd);
     }
 
     private void authenticate_for_invalid_id_or_pwd(String id1, String pwd) {
