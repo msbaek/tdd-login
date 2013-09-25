@@ -8,9 +8,7 @@ public class AuthenticateTest {
 
     @Test
     public void whenIdOrPwdIsInvalid_thenThrowException() {
-        String id1 = null;
-        String pwd = null;
-        authenticate_for_invalid_id_or_pwd(id1, pwd);
+        authenticate_for_invalid_id_or_pwd(null, null);
         authenticate_for_invalid_id_or_pwd("", null);
         authenticate_for_invalid_id_or_pwd(id, null);
         authenticate_for_invalid_id_or_pwd(id, "");
