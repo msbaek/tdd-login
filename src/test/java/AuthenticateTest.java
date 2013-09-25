@@ -1,6 +1,5 @@
 import com.google.common.base.Strings;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -55,9 +54,8 @@ public class AuthenticateTest {
     }
 
     @Test
-    @Ignore
     public void whenIdIsValid_thenReturnUser() {
-        User user = authenticate(id, wrongPwd);
+        User user = authenticate(id, pwd);
         assertThat(user, notNullValue());
     }
 
