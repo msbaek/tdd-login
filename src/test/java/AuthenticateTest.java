@@ -8,8 +8,10 @@ public class AuthenticateTest {
 
     @Test
     public void whenIdOrPwdIsInvalid_thenThrowException() {
+        String id1 = null;
+        String pwd = null;
         try {
-            authenticate(null, null);
+            authenticate(id1, pwd);
             fail("InvalidIdOrPwd expected");
         } catch (InvalidIdOrPwd e) {
         }
@@ -31,9 +33,9 @@ public class AuthenticateTest {
     }
 
     private void authenticate(String id, String pwd) {
-        if(Strings.isNullOrEmpty(id))
+        if (Strings.isNullOrEmpty(id))
             throw new InvalidIdOrPwd();
-        if(Strings.isNullOrEmpty(pwd))
+        if (Strings.isNullOrEmpty(pwd))
             throw new InvalidIdOrPwd();
     }
 
