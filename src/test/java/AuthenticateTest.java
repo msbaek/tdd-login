@@ -1,5 +1,6 @@
 import com.google.common.base.Strings;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -8,19 +9,22 @@ import org.mockito.runners.MockitoJUnitRunner;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AuthenticateTest {
     private String id = "id";
     private String pwd = "pwd";
     private String nonExistingId = "nonExistingId";
+    private String wrongPwd = "wrongPwd";
 
     @Mock private UserRepository userRepository;
     private User user = new User();
 
     @Before
     public void setUp() {
+        user = spy(user);
+        doThrow(WrongPassword.class).when(user).authenticate(wrongPwd);
         when(userRepository.findById(nonExistingId)).thenReturn(null);
         when(userRepository.findById(id)).thenReturn(user);
     }
@@ -51,14 +55,15 @@ public class AuthenticateTest {
     }
 
     @Test
+    @Ignore
     public void whenIdIsValid_thenReturnUser() {
-        User user = authenticate(id, "wrongPwd");
+        User user = authenticate(id, wrongPwd);
         assertThat(user, notNullValue());
     }
 
     @Test public void whenPwdIsWrong_thenThrowException() {
         try {
-            authenticate(id, "wrongPwd");
+            authenticate(id, wrongPwd);
             fail("WrongPassword expected");
         }
         catch(WrongPassword e) {
@@ -73,6 +78,7 @@ public class AuthenticateTest {
         User user = userRepository.findById(id);
         if(user == null)
             throw new IdNotFound();
+        user.authenticate(pwd);
         return user;
     }
 
