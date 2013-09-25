@@ -10,23 +10,15 @@ public class AuthenticateTest {
     public void whenIdOrPwdIsInvalid_thenThrowException() {
         String id1 = null;
         String pwd = null;
+        authenticate_for_invalid_id_or_pwd(id1, pwd);
+        authenticate_for_invalid_id_or_pwd("", null);
+        authenticate_for_invalid_id_or_pwd(id, null);
+        authenticate_for_invalid_id_or_pwd(id, "");
+    }
+
+    private void authenticate_for_invalid_id_or_pwd(String id1, String pwd) {
         try {
             authenticate(id1, pwd);
-            fail("InvalidIdOrPwd expected");
-        } catch (InvalidIdOrPwd e) {
-        }
-        try {
-            authenticate("", null);
-            fail("InvalidIdOrPwd expected");
-        } catch (InvalidIdOrPwd e) {
-        }
-        try {
-            authenticate(id, null);
-            fail("InvalidIdOrPwd expected");
-        } catch (InvalidIdOrPwd e) {
-        }
-        try {
-            authenticate(id, "");
             fail("InvalidIdOrPwd expected");
         } catch (InvalidIdOrPwd e) {
         }
