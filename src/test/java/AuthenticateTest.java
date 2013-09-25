@@ -1,3 +1,4 @@
+import com.google.common.base.Strings;
 import org.junit.Test;
 
 import static org.junit.Assert.fail;
@@ -13,7 +14,8 @@ public class AuthenticateTest {
     }
 
     private void authenticate(String id, String pwd) {
-        throw new IllegalStateException("AuthenticateTest#authenticate not implemented yet");
+        if(Strings.isNullOrEmpty(id))
+            throw new InvalidIdOrPwd();
     }
 
     private class InvalidIdOrPwd extends RuntimeException {
