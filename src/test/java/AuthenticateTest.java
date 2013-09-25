@@ -33,6 +33,8 @@ public class AuthenticateTest {
     private void authenticate(String id, String pwd) {
         if(Strings.isNullOrEmpty(id))
             throw new InvalidIdOrPwd();
+        if(Strings.isNullOrEmpty(pwd))
+            throw new InvalidIdOrPwd();
     }
 
     private class InvalidIdOrPwd extends RuntimeException {
